@@ -1,0 +1,74 @@
+# name: DevLake DORA Test
+
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#   workflow_dispatch:
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - run: echo "Build step"
+#       - run: sleep 10
+
+#   test:
+#     runs-on: ubuntu-latest
+#     needs: build
+#     steps:
+#       - run: echo "Test step"
+#       - run: sleep 15
+
+#   deploy:
+#     runs-on: ubuntu-latest
+#     needs: test
+#     environment: production
+#     steps:
+#       - run: echo "Deploying to production"
+#       - run: sleep 5
+name: DevLake DORA Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"   # optional: auto-generate data
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: |
+          echo "Building..."
+          sleep 10
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Test
+        run: |
+          echo "Running tests..."
+          sleep 15
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    environment: Dev   # 👈 CRITICAL for DORA
+    steps:
+      - name: Deploy
+        run: |
+          echo "Deploying to Dev..."
+          sleep 5
+
+          # Random failure to simulate real incidents (CFR + MTTR)
+          if [ $((RANDOM % 4)) -eq 0 ]; then
+            echo "Deployment failed"
+            exit 1
+          fi
+
+          echo "Deployment succeeded"
