@@ -58,7 +58,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: test
-    environment: Dev   # 👈 CRITICAL for DORA
+    environment: production   # 👈 CRITICAL for DORA
     steps:
       - name: Deploy
         run: |
