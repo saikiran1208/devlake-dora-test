@@ -1,37 +1,37 @@
-name: DevLake DORA Fast Demo
+# name: DevLake DORA Fast Demo
 
-on:
-  workflow_dispatch:  # Run manually
+# on:
+#   workflow_dispatch:  # Run manually
 
-jobs:
-  fast-demo:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+# jobs:
+#   fast-demo:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - name: Configure Git
-        run: |
-          git config user.name "DevLake Bot"
-          git config user.email "bot@example.com"
+#       - name: Configure Git
+#         run: |
+#           git config user.name "DevLake Bot"
+#           git config user.email "bot@example.com"
 
-      - name: Generate fast demo data
-        run: |
-          for i in {1..10}; do
-            # Simulate a small code change
-            echo "Demo change $i at $(date)" >> activity.txt
-            git add activity.txt
-            git commit -m "feat: synthetic commit $i"
+#       - name: Generate fast demo data
+#         run: |
+#           for i in {1..10}; do
+#             # Simulate a small code change
+#             echo "Demo change $i at $(date)" >> activity.txt
+#             git add activity.txt
+#             git commit -m "feat: synthetic commit $i"
 
-            # Simulate deployment
-            echo "Deploying synthetic change $i..."
-            sleep 1
-            if [ $((RANDOM % 4)) -eq 0 ]; then
-              echo "Deployment $i failed"
-            else
-              echo "Deployment $i succeeded"
-            fi
+#             # Simulate deployment
+#             echo "Deploying synthetic change $i..."
+#             sleep 1
+#             if [ $((RANDOM % 4)) -eq 0 ]; then
+#               echo "Deployment $i failed"
+#             else
+#               echo "Deployment $i succeeded"
+#             fi
 
-            # Push commit to main branch
-            git push origin HEAD:main
-            sleep 1
-          done
+#             # Push commit to main branch
+#             git push origin HEAD:main
+#             sleep 1
+#           done
